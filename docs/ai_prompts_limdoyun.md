@@ -6,7 +6,7 @@
 - **목적:** 같은 기업·기간·단위·키로 만든 두 계산의 누락·중복·값 차이를 찾고 근거 없는 브리핑을 막는다.
 - **해야 할 일:** 실제 DB 스키마 확인 → SQL/Pandas 독립 계산 → 잘못된 금액·접수일·빈 데이터 반례 검증 → 실행 결과·한계 기록 → PR·동료 리뷰.
 - **이번에 실제 사용한 AI 도구:** Codex 데스크톱. 이영이 요청했고 Codex가 코드를 작성·실행했다. 임도윤 본인이 사용한 도구·수동 검토는 확인되지 않았다.
-- **이행 산출물:** `src/validate_results.py`, `tests/test_validate_results.py`, `docs/validation_limdoyun.md`, `ai_log.md`, PR #11. 로컬 DART DB에서 재무 60행·공시 88그룹이 일치했고 전체 테스트 10개가 통과했다.
+- **이행 산출물:** `src/validate_results.py`, `tests/test_validate_results.py`, `docs/validation_limdoyun.md`, `ai_log.md`, PR #11. 로컬 DART DB에서 재무 60행·공시 88그룹과 강동윤 SQL 선택 지표 16행이 일치했고 전체 테스트 11개가 통과했다.
 
 아래는 임도윤님이 자신의 AI 도구에 **추후 복사해 사용할 수 있도록 만든
 구체적인 프롬프트**다. 실제 입력 이력은 `ai_log.md`의 이영→Codex 요청과

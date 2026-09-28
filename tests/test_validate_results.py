@@ -19,14 +19,15 @@ class ValidateResultsTest(unittest.TestCase):
                 db.executescript("""
                     CREATE TABLE finance (
                       corp_code TEXT, bsns_year TEXT, fs_div TEXT, sj_div TEXT,
-                      account_nm TEXT, ord TEXT, thstrm_amount TEXT, frmtrm_amount TEXT
+                      account_nm TEXT, ord TEXT, reprt_code TEXT, currency TEXT,
+                      thstrm_amount TEXT, frmtrm_amount TEXT
                     );
                     CREATE TABLE disclosures (
                       corp_code TEXT, rcept_dt TEXT, report_nm TEXT
                     );
                     INSERT INTO finance VALUES
-                      ('00126380','2024','CFS','IS','매출액','1','1,200','1,000'),
-                      ('00126380','2024','CFS','IS','영업이익','2','50','0');
+                      ('00126380','2024','CFS','IS','매출액','1','11011','KRW','1,200','1,000'),
+                      ('00126380','2024','CFS','IS','영업이익','2','11011','KRW','50','0');
                     INSERT INTO disclosures VALUES
                       ('00126380','20240101','사업보고서'),
                       ('00126380','20240102','사업보고서');
@@ -35,6 +36,8 @@ class ValidateResultsTest(unittest.TestCase):
             self.assertEqual(report["status"], "PASS")
             self.assertEqual(report["finance"]["rows"], 2)
             self.assertEqual(report["disclosures"]["rows"], 1)
+            self.assertEqual(report["team_finance_sql"]["rows"], 2)
+            self.assertEqual(report["team_finance_sql"]["mismatch_count"], 0)
 
             with closing(sqlite3.connect(database)) as db:
                 db.execute("INSERT INTO disclosures VALUES ('00126380', NULL, '사업보고서')")

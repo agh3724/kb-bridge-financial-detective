@@ -174,7 +174,7 @@ Pull Request: [#11](https://github.com/twozero3213-beep/kb-bridge-financial-dete
 
 Review한 PR: [이영 PR #9 승인](https://github.com/twozero3213-beep/kb-bridge-financial-detective/pull/9#pullrequestreview-5334288038), [강동윤 PR #13 승인](https://github.com/twozero3213-beep/kb-bridge-financial-detective/pull/13#pullrequestreview-5334534907)
 
-본인 기여 설명: 담당 산출물은 로컬 DART DB의 재무 60행·공시 88그룹을 SQL/Pandas로 비교해 불일치 0건을 확인했다. 추가 교차검증 코드는 이영 요청으로 Codex가 작성·실행하고 임도윤 계정 인증으로 올렸다. 임도윤 본인 직접 작성·검토는 미확인이다.
+본인 기여 설명: 담당 산출물은 로컬 DART DB의 재무 60행·공시 88그룹 및 강동윤 SQL 결과 16행을 Pandas와 비교해 불일치 0건을 확인했다. 추가 교차검증 코드는 이영 요청으로 Codex가 작성·실행하고 임도윤 계정 인증으로 올렸다. 임도윤 본인 직접 작성·검토는 미확인이다.
 
 60초 설명: 설명용 요약 — 같은 회사·기간·키로 SQL과 Pandas 계산을 비교하고 누락·중복·금액/건수 차이를 `CHECK`로 보고한다. 같은 원본의 계산 일치만 증명한다. 본인이 직접 설명할 수 있는지는 확인되지 않았다.
 

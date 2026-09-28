@@ -10,6 +10,7 @@ import pandas as pd
 
 
 FINANCE_KEYS = ["corp_code", "bsns_year", "fs_div", "sj_div", "account_nm", "ord"]
+TEAM_FINANCE_KEYS = ["corp_code", "bsns_year", "reprt_code", "fs_div", "sj_div", "account_nm"]
 DISCLOSURE_KEYS = ["corp_code", "year", "report_nm"]
 
 
@@ -57,7 +58,8 @@ def validate(database):
             FROM finance
         """, db)
         raw_finance = pd.read_sql_query("""
-            SELECT corp_code, bsns_year, fs_div, sj_div, account_nm, ord,
+            SELECT corp_code, bsns_year, reprt_code, fs_div, sj_div, account_nm, ord,
+                   currency,
                    thstrm_amount, frmtrm_amount FROM finance
         """, db)
         finance_pandas = raw_finance[FINANCE_KEYS].copy()
@@ -81,16 +83,41 @@ def validate(database):
         disclosures_pandas = (raw_disclosures.groupby(DISCLOSURE_KEYS, dropna=False)
                               .size().rename("count").reset_index())
 
+        # 강동윤 담당 SQL의 실제 결과를 별도 Pandas 계산과 같은 키로 대조한다.
+        finance_sql_file = Path(__file__).resolve().parents[1] / "sql" / "queries_finance.sql"
+        db.executescript(finance_sql_file.read_text(encoding="utf-8"))
+        team_sql = pd.read_sql_query("SELECT * FROM finance_q1_changes", db)
+        team_raw = raw_finance.loc[
+            raw_finance.reprt_code.eq("11011") & raw_finance.currency.eq("KRW")
+            & raw_finance.account_nm.isin(("매출액", "영업이익", "당기순이익(손실)", "자산총계"))
+        ].copy()
+        team_raw["source_rows"] = team_raw.groupby(TEAM_FINANCE_KEYS, dropna=False)["ord"].transform("size")
+        team_raw["ord_number"] = pd.to_numeric(team_raw.ord, errors="coerce").fillna(0)
+        team_raw = team_raw.sort_values("ord_number").drop_duplicates(TEAM_FINANCE_KEYS)
+        for source, target in (("thstrm_amount", "current_amount"),
+                               ("frmtrm_amount", "previous_amount")):
+            amount = team_raw[source].str.replace(",", "", regex=False).str.strip()
+            team_raw[target] = pd.to_numeric(amount.where(amount.str.fullmatch(r"-?\d+")),
+                                             errors="coerce")
+        team_raw["change_amount"] = team_raw.current_amount - team_raw.previous_amount
+        team_raw["change_pct"] = (
+            100 * team_raw.change_amount / team_raw.previous_amount.abs()
+        ).where(team_raw.previous_amount.ne(0))
+        team_finance = compare(team_sql, team_raw, TEAM_FINANCE_KEYS,
+                               ["source_rows", "current_amount", "previous_amount",
+                                "change_amount", "change_pct"], tolerance=1e-6)
+
     invalid_amounts = int(finance_pandas[["current", "previous"]].isna().any(axis=1).sum())
     invalid_dates = int((~raw_disclosures.rcept_dt.str.fullmatch(r"\d{8}").fillna(False)).sum())
     finance = compare(finance_sql, finance_pandas, FINANCE_KEYS,
                       ["current", "previous", "change_amount", "change_pct"],
                       tolerance=1e-6)
     disclosures = compare(disclosures_sql, disclosures_pandas, DISCLOSURE_KEYS, ["count"])
-    status = "PASS" if (finance["status"] == disclosures["status"] == "PASS"
-                        and finance["rows"] and disclosures["rows"]
+    status = "PASS" if (finance["status"] == disclosures["status"] == team_finance["status"] == "PASS"
+                        and finance["rows"] and disclosures["rows"] and team_finance["rows"]
                         and not invalid_amounts and not invalid_dates) else "CHECK"
     return {"status": status, "finance": finance, "disclosures": disclosures,
+            "team_finance_sql": team_finance,
             "invalid_amount_rows": invalid_amounts, "invalid_disclosure_dates": invalid_dates}
 
 
