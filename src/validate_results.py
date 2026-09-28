@@ -82,12 +82,13 @@ def validate(database):
                               .size().rename("count").reset_index())
 
     invalid_amounts = int(finance_pandas[["current", "previous"]].isna().any(axis=1).sum())
-    invalid_dates = int((~raw_disclosures.rcept_dt.str.fullmatch(r"\d{8}")).sum())
+    invalid_dates = int((~raw_disclosures.rcept_dt.str.fullmatch(r"\d{8}").fillna(False)).sum())
     finance = compare(finance_sql, finance_pandas, FINANCE_KEYS,
                       ["current", "previous", "change_amount", "change_pct"],
                       tolerance=1e-6)
     disclosures = compare(disclosures_sql, disclosures_pandas, DISCLOSURE_KEYS, ["count"])
     status = "PASS" if (finance["status"] == disclosures["status"] == "PASS"
+                        and finance["rows"] and disclosures["rows"]
                         and not invalid_amounts and not invalid_dates) else "CHECK"
     return {"status": status, "finance": finance, "disclosures": disclosures,
             "invalid_amount_rows": invalid_amounts, "invalid_disclosure_dates": invalid_dates}
