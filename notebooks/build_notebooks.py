@@ -1,4 +1,11 @@
-{
+import json
+import os
+from pathlib import Path
+
+repo_dir = Path(r"c:\Users\user\Documents\One day project\kb-bridge-financial-detective")
+
+# 1. notebooks/analysis_finance.ipynb 생성
+notebook_content = {
  "cells": [
   {
    "cell_type": "markdown",
@@ -27,7 +34,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -56,7 +63,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -116,7 +123,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -170,7 +177,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -242,7 +249,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -300,7 +307,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -341,7 +348,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": None,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -362,3 +369,16 @@
  "nbformat": 4,
  "nbformat_minor": 2
 }
+
+# 파일 저장
+target_nb_path = repo_dir / "notebooks" / "analysis_finance.ipynb"
+with open(target_nb_path, "w", encoding="utf-8") as f:
+    json.dump(notebook_content, f, ensure_ascii=False, indent=1)
+
+# analysis_anjihyeong.ipynb도 동일하게 갱신
+anjihyeong_nb_path = repo_dir / "notebooks" / "analysis_anjihyeong.ipynb"
+with open(anjihyeong_nb_path, "w", encoding="utf-8") as f:
+    json.dump(notebook_content, f, ensure_ascii=False, indent=1)
+
+print(f"✅ Generated {target_nb_path}")
+print(f"✅ Updated {anjihyeong_nb_path}")
