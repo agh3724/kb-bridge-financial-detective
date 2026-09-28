@@ -53,3 +53,25 @@ Issue → 담당자 지정 → 개인 Feature Branch → 의미 있는 Commit �
 ## 핵심 결과
 
 TBD - 분석 완료 후 작성.
+
+## 임도윤: 브리핑 생성
+
+검증된 재무·공시 분석 결과(JSON)를 바탕으로 한국어 Markdown 브리핑을 생성하는 스크립트입니다.
+
+### 실행 방법
+
+```bash
+# 가상 예시 데이터로 브리핑 생성 (표준 출력)
+python src/briefing_limdoyun.py --input examples/limdoyun/sample_validated_SAMPLE.json
+
+# 결과를 Markdown 파일로 저장
+python src/briefing_limdoyun.py --input examples/limdoyun/sample_validated_SAMPLE.json --output examples/limdoyun/briefing_output.md
+```
+
+### 테스트 실행
+
+```bash
+# 검증 케이스(단위 및 통합 테스트) 실행
+python -m unittest tests/test_briefing_limdoyun.py
+```
+

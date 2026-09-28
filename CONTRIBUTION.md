@@ -1,6 +1,7 @@
 # 팀원별 기여 기록
 
-실제 작업 후 Issue·Commit·PR·Review 링크를 기록한다. 아래 항목은 모두 미완료 상태의 템플릿이다.
+Issue·Commit·PR·Review 링크와 실제 상태를 기록한다. 계정 인증으로 올린 기록과
+팀원 본인이 직접 작성·검토한 사실은 구분한다. 최종 결과물 반영은 `main` 머지 후 확인한다.
 
 ## 나지수
 
@@ -35,33 +36,33 @@ Review한 PR:
 
 ## 강동윤
 
-담당 Issue:
+담당 Issue: [#4 재무 SQL](https://github.com/twozero3213-beep/kb-bridge-financial-detective/issues/4) (`dev` 머지 후 닫힘)
 
-담당 기능:
+담당 기능: 사업보고서 재무 지표의 전기 대비 증감액·증감률 SQL
 
-Branch:
+Branch: `feature/dongyungang94-coder-finance-sql`
 
-개인 산출물:
+개인 산출물: `sql/queries_finance.sql`, `src/run_finance_sql.py`, `tests/test_queries_finance.py`, `docs/finance_sql_gangdongyun.md`, `docs/ai_prompts_gangdongyun.md`, `ai_log.md`의 강동윤 절
 
-주요 Commit:
+주요 Commit: [`7d353e9`](https://github.com/twozero3213-beep/kb-bridge-financial-detective/commit/7d353e9), [`b2e402d`](https://github.com/twozero3213-beep/kb-bridge-financial-detective/commit/b2e402d), [`d65acae`](https://github.com/twozero3213-beep/kb-bridge-financial-detective/commit/d65acae)
 
-Pull Request:
+Pull Request: [#13](https://github.com/twozero3213-beep/kb-bridge-financial-detective/pull/13) → `dev` merge [`1bdaba2`](https://github.com/twozero3213-beep/kb-bridge-financial-detective/commit/1bdaba2)
 
-Review한 PR:
+Review한 PR: [안지형 PR #12 수정 요청](https://github.com/twozero3213-beep/kb-bridge-financial-detective/pull/12#pullrequestreview-5334495466)
 
-본인 기여 설명:
+본인 기여 설명: 담당 산출물은 실제 DART 재무 60행에서 Q1 선택 지표 16행을 계산하고 중복·분모 예외를 표시한다. 이영 요청으로 Codex가 작성·실행하고 강동윤 계정 인증으로 올렸다. 강동윤 본인 직접 작성·검토는 미확인이다.
 
-60초 설명:
+60초 설명: 설명용 요약 — 11011 사업보고서·KRW만 사용해 CFS/OFS를 분리한다. 중복 계정은 `ord` 대표 행을 선택하고 `source_rows`로 남긴다. 전기 0이면 증감률은 `NULL`이다. 본인이 직접 설명할 수 있는지는 확인되지 않았다.
 
 상태:
 
-- [ ] Issue
-- [ ] Feature Branch
-- [ ] 의미 있는 Commit 1
-- [ ] 의미 있는 Commit 2
-- [ ] Pull Request
-- [ ] 다른 팀원 PR Review
-- [ ] dev Merge
+- [x] Issue
+- [x] Feature Branch
+- [x] 의미 있는 Commit 1
+- [x] 의미 있는 Commit 2
+- [x] Pull Request
+- [x] 다른 팀원 PR Review
+- [x] dev Merge
 - [ ] 최종 결과물 반영
 
 ## 안지형
@@ -159,31 +160,31 @@ Review한 PR:
 
 ## 임도윤
 
-담당 Issue:
+담당 Issue: [#8 SQL·Pandas 교차검증](https://github.com/twozero3213-beep/kb-bridge-financial-detective/issues/8) (PR #11 리뷰·머지 전까지 열림)
 
-담당 기능:
+담당 기능: 재무·공시 SQL/Pandas 독립 계산 비교 및 검증된 사실만 AI 브리핑에 전달
 
-Branch:
+Branch: `feature/limdoyun-ai`
 
-개인 산출물:
+개인 산출물: `src/validate_results.py`, `tests/test_validate_results.py`, `docs/validation_limdoyun.md`, `docs/ai_prompts_limdoyun.md`, `src/briefing_limdoyun.py`, `tests/test_briefing_limdoyun.py`, `ai_log.md`의 임도윤 절
 
-주요 Commit:
+주요 Commit: 기존 브리핑 [`1488715`](https://github.com/twozero3213-beep/kb-bridge-financial-detective/commit/1488715), [`fec47b9`](https://github.com/twozero3213-beep/kb-bridge-financial-detective/commit/fec47b9), [`1745605`](https://github.com/twozero3213-beep/kb-bridge-financial-detective/commit/1745605); 교차검증 [`8ce7f68`](https://github.com/twozero3213-beep/kb-bridge-financial-detective/commit/8ce7f68), [`c3ad17d`](https://github.com/twozero3213-beep/kb-bridge-financial-detective/commit/c3ad17d)
 
-Pull Request:
+Pull Request: [#11](https://github.com/twozero3213-beep/kb-bridge-financial-detective/pull/11) → `dev` 대상, 현재 리뷰·머지 대기
 
-Review한 PR:
+Review한 PR: [이영 PR #9 승인](https://github.com/twozero3213-beep/kb-bridge-financial-detective/pull/9#pullrequestreview-5334288038), [강동윤 PR #13 승인](https://github.com/twozero3213-beep/kb-bridge-financial-detective/pull/13#pullrequestreview-5334534907)
 
-본인 기여 설명:
+본인 기여 설명: 담당 산출물은 로컬 DART DB의 재무 60행·공시 88그룹 및 강동윤 SQL 결과 16행을 Pandas와 비교해 불일치 0건을 확인했다. 추가 교차검증 코드는 이영 요청으로 Codex가 작성·실행하고 임도윤 계정 인증으로 올렸다. 임도윤 본인 직접 작성·검토는 미확인이다.
 
-60초 설명:
+60초 설명: 설명용 요약 — 같은 회사·기간·키로 SQL과 Pandas 계산을 비교하고 누락·중복·금액/건수 차이를 `CHECK`로 보고한다. 같은 원본의 계산 일치만 증명한다. 본인이 직접 설명할 수 있는지는 확인되지 않았다.
 
 상태:
 
-- [ ] Issue
-- [ ] Feature Branch
-- [ ] 의미 있는 Commit 1
-- [ ] 의미 있는 Commit 2
-- [ ] Pull Request
-- [ ] 다른 팀원 PR Review
+- [x] Issue
+- [x] Feature Branch
+- [x] 의미 있는 Commit 1
+- [x] 의미 있는 Commit 2
+- [x] Pull Request
+- [x] 다른 팀원 PR Review
 - [ ] dev Merge
 - [ ] 최종 결과물 반영

@@ -2,6 +2,7 @@
 
 import sqlite3
 import unittest
+from contextlib import closing
 from pathlib import Path
 
 
@@ -10,7 +11,7 @@ SQL_FILE = Path(__file__).resolve().parents[1] / "sql" / "queries_finance.sql"
 
 class FinanceSQLTest(unittest.TestCase):
     def test_finance_changes(self):
-        with sqlite3.connect(":memory:") as db:
+        with closing(sqlite3.connect(":memory:")) as db:
             db.executescript("""
                 CREATE TABLE finance (
                     corp_code TEXT, bsns_year TEXT, reprt_code TEXT, fs_div TEXT,
