@@ -79,7 +79,7 @@ Branch: `feature/agh3724-finance-pandas`
 
 Pull Request: [#12](https://github.com/twozero3213-beep/kb-bridge-financial-detective/pull/12) → `dev` 대상, 검토 중
 
-Review한 PR: 검토 후 링크 추가
+Review한 PR: [이정수 PR #10 수정 요청](https://github.com/twozero3213-beep/kb-bridge-financial-detective/pull/10#pullrequestreview-5334727726)
 
 본인 기여 설명: 담당 산출물은 사업보고서·KRW·CFS/OFS를 구분해 실제 DART 원본 60행에서 선택 지표 16행을 계산하고 강동윤 SQL과 16행 모두 일치함을 확인한다. 이영 요청으로 Codex가 안지형 담당 브랜치에 코드를 작성·실행하고 안지형 계정 인증으로 올렸다. 안지형 본인 직접 작성·검토는 확인되지 않았다.
 
@@ -92,7 +92,7 @@ Review한 PR: 검토 후 링크 추가
 - [x] 의미 있는 Commit 1
 - [x] 의미 있는 Commit 2
 - [x] Pull Request
-- [ ] 다른 팀원 PR Review
+- [x] 다른 팀원 PR Review
 - [ ] dev Merge
 - [ ] 최종 결과물 반영
 
